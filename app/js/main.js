@@ -37,11 +37,13 @@
         }
 
         var mousemove = function (e){
-            var _zoomDiv = _bgImg.offset();
+            var _zoomDiv = _bgImg.Offset();
 
+            console.log(_zoomDiv);
             _mousePoint.x = e.pageX - _zoomDiv.left();
             _mousePoint.y = e.pageY - _zoomDiv.top();
 
+            console.log(_mousePoint.y);
             if( _mousePoint.x < _bgImg.width && _mousePoint.y < _bgImg.height && _mousePoint.x > 0 && _mousePoint.y > 0){
                 _zoomDiv(e);
             }else{
@@ -58,7 +60,7 @@
                 _bgabsPos = _zoomWidth + "px" + _zoomHeight + "px",
                 _zoomLeft = (e).page.x - _ui.glass.width() / 2,
                 _zoomTop = (e).page.y - _ui.glass.height()  / 2;
-
+                console.log(_zoomTop);
                 _ui.glass.css({
                     left: _zoomLeft,
                     top: _zoomTop,
@@ -97,15 +99,21 @@
 
                         _ui.glass.on('mousemove', mouseMove);
 
-                        newImage.src = src;
+                    };
+                    newImage.src = src;
 
-                        return;
-                    }
+                    return;
                 }else{
-                    
+                    _defaultHeight = _bgImg.height;
+                     _defaultWidth = _bgImg.width;
                 }
+                mouseMove.apply(this, arguments);
 
+                _ui.glass.on('mousemove', mouseMove);
         });
+         _ui.glass.on('mouseout', function() {
+            _ui.glass.off('mousemove', mouseMove);
+          });
     };
 
     Plugin.prototype.zoom = function () {

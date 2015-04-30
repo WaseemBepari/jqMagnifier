@@ -36,3 +36,9 @@ body{
   text-align: center;
   padding: 20px;
 }
+
+h1{
+  text-align: center;
+  color: black;
+  font-size: 36px;
+}
