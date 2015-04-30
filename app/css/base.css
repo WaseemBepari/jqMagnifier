@@ -15,10 +15,6 @@
   display: none;
 }
 
-
-
-
-
 /*********
 *** Styles just for DEMO purpose
 *********/
@@ -39,21 +35,4 @@ body{
   margin: 20px auto;
   text-align: center;
   padding: 20px;
-}
-
-h1, h2, h3 {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 30px;
-  color: #fff;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.75);
-}
-
-h2 {
-  font-size: 26px;
-  margin: 25px 0;
-}
-
-a {
-  color: white;
 }
