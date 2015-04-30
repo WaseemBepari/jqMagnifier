@@ -1,0 +1,2 @@
+# jqMagnifier
+Image Zoom.
