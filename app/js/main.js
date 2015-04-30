@@ -65,11 +65,46 @@
                     backgroundPosition: bg_pos
                 });
 
-                return();
+                return;
         }
 
         $(".zoom").on("mousemove", function(){
             _ui.glass.fadeOut(100);
+
+                _bgImg = $(this);
+
+            var _lgImg = _bgImg.data(".magnied_img"),
+                _src = _bgImg.data("large") || _bgImg.attr("src");
+
+                if(src){
+                    _ui.glass.css({
+                        'background-image': 'url(' + src + ')',
+                        'background-repeat': 'no-repeat'
+                    });
+                }
+
+                if(!_bgImg.data("_defaultWidth")){
+                    var newImage = new Image();
+
+                    newImage.onload = function(){
+                        _defaultHeight = newImage.height;
+                        _defaultWidth = newImage.width;
+
+                        _bgImg.data("_defaultheight", _defaultheight);
+                        _bgImg.data("_defaultWidth", _defaultWidth);
+
+                        mouseMove.apply(this, arguments);
+
+                        _ui.glass.on('mousemove', mouseMove);
+
+                        newImage.src = src;
+
+                        return;
+                    }
+                }else{
+                    
+                }
+
         });
     };
 
