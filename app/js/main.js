@@ -51,9 +51,26 @@
         
         return;
 
+        //change bg Pos
         var magnifier = function () {
-            
+            var _zoomWidth = Math.round(_mousePoint.x / _bgImg.width() * _defaultHeight - _ui.glass.width() / 2) * -1,
+                _zoomHeight = Math.round(_mousePoint.y / _bgImg.height() * _defaultHeight - _ui.glass.height() / 2) * -1,
+                _bgabsPos = _zoomWidth + "px" + _zoomHeight + "px",
+                _zoomLeft = (e).page.x - _ui.glass.width() / 2,
+                _zoomTop = (e).page.y - _ui.glass.height()  / 2;
+
+                _ui.glass.css({
+                    left: _zoomLeft,
+                    top: _zoomTop,
+                    backgroundPosition: bg_pos
+                });
+
+                return();
         }
+
+        $(".zoom").on("mousemove", function(){
+            _ui.glass.fadeOut(100);
+        });
     };
 
     Plugin.prototype.zoom = function () {
