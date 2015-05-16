@@ -115,12 +115,6 @@
             _ui.glass.off('mousemove', mouseMove);
           });
     };
-
-    Plugin.prototype.zoom = function () {
-        var mousemove = $(this),
-            mag
-
-    }
  
     $.fn.magnifier = function (options) {
         return this.each(function () {
