@@ -111,9 +111,10 @@
 
                 _ui.glass.on('mousemove', mouseMove);
         });
-         _ui.glass.on('mouseout', function() {
-            _ui.glass.off('mousemove', mouseMove);
-          });
+
+        _ui.glass.on('mouseout', function() {
+           _ui.glass.off('mousemove', mouseMove);
+        });
     };
  
     $.fn.magnifier = function (options) {
