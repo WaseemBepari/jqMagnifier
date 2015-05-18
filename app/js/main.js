@@ -55,17 +55,15 @@
         };
 
         var zoomify = function(e){
-            var _posX = Math.round(_mousePoint.x / _bgImg.width() * _defaultHeight - _ui.glass.width() /2 ) * -1;
-            var _posY = Math.round(_mousePoint.y / _bgImg.height() * _defaultWidth - _ui.glass.height() / 2) * -1;
-            var _bgImgPos = _posX + "px " + _posY + "px";
-
-
-            var glass_left = e.pageX - _ui.glass.width() / 2;
-            var glass_top  = e.pageY - _ui.glass.height() / 2;
+            var _posX = Math.round(_mousePoint.x / _bgImg.width() * _defaultHeight - _ui.glass.width() /2 ) * -1,
+                _posY = Math.round(_mousePoint.y / _bgImg.height() * _defaultWidth - _ui.glass.height() / 2) * -1,
+                _bgImgPos = _posX + "px " + _posY + "px",
+                _glass_left = e.pageX - _ui.glass.width() / 2,
+                _glass_top  = e.pageY - _ui.glass.height() / 2;
 
                 _ui.glass.css({
-                  left: glass_left,
-                  top: glass_top,
+                  left: _glass_left,
+                  top: _glass_top,
                   backgroundPosition: _bgImgPos
                 });
 
@@ -87,11 +85,11 @@
                 }
 
                 if(!_bgImg.data('_defaultWidth')){
-                    var image_object = new Image();
+                    var newImage = new Image();
 
-                    image_object.onload = function() {
-                        _defaultHeight = image_object.height;
-                        _defaultWidth = image_object.width;
+                    newImage.onload = function() {
+                        _defaultHeight = newImage.height;
+                        _defaultWidth = newImage.width;
 
                         _bgImg.data('_defaultHeight', _defaultHeight);
                         _bgImg.data('_defaultWidth', _defaultWidth);
@@ -101,14 +99,13 @@
                         _ui.glass.on('mousemove', mouseMove);
                     };
 
-                    image_object.src = src;
+                    newImage.src = src;
         
                     return;
                 }else {
 
                 _defaultHeight = _bgImg.data('_defaultHeight');
                 _defaultWidth = _bgImg.data('_defaultWidth');
-
 
               }
 
