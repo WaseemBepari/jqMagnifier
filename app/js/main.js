@@ -39,15 +39,12 @@
 
         var mouseMove = function(e){
             var $el = $(this);
-
-            console.log("hii");
-
             var _zoomPos = _bgImg.offset();
             _mousePoint.x = e.pageX - _zoomPos.left;
             _mousePoint.y = e.pageY - _zoomPos.top;
 
             if ( _mousePoint.x < _bgImg.width() && _mousePoint.y < _bgImg.height() && _mousePoint.x > 0 && _mousePoint.y > 0) {
-              _zoomDiv(e);
+              zoomify(e);
             }
             else {
               _ui.glass.fadeOut(100);
@@ -58,12 +55,69 @@
         };
 
         var zoomify = function(e){
-            var _posX = Math.round(mouse.x / cur_img.width() * native_width - ui.glass.width() /2 ) * -1;
-            var _posY = Math.round(mouse.y / cur_img.height() * native_height - ui.glass.height() / 2) * -1;
-            var _bgImg = _posX + "px " + _posY + "px";
+            var _posX = Math.round(_mousePoint.x / _bgImg.width() * _defaultHeight - _ui.glass.width() /2 ) * -1;
+            var _posY = Math.round(_mousePoint.y / _bgImg.height() * _defaultWidth - _ui.glass.height() / 2) * -1;
+            var _bgImgPos = _posX + "px " + _posY + "px";
+
+
+            var glass_left = e.pageX - _ui.glass.width() / 2;
+            var glass_top  = e.pageY - _ui.glass.height() / 2;
+
+                _ui.glass.css({
+                  left: glass_left,
+                  top: glass_top,
+                  backgroundPosition: _bgImgPos
+                });
+
+            return;
         };
 
-    };
+        $('.zoom').on('mousemove', function() {
+                _ui.glass.fadeIn(200);
+                _bgImg = $(this);
+
+                var large_img_loaded = _bgImg.data('large-img-loaded');
+                var src = _bgImg.data('large') || _bgImg.attr('src');
+
+                if (src) {
+                  _ui.glass.css({
+                    'background-image': 'url(' + src + ')',
+                    'background-repeat': 'no-repeat'
+                  });
+                }
+
+                if(!_bgImg.data('_defaultWidth')){
+                    var image_object = new Image();
+
+                    image_object.onload = function() {
+                        _defaultHeight = image_object.height;
+                        _defaultWidth = image_object.width;
+
+                        _bgImg.data('_defaultHeight', _defaultHeight);
+                        _bgImg.data('_defaultWidth', _defaultWidth);
+
+                        mouseMove.apply(this, arguments);
+
+                        _ui.glass.on('mousemove', mouseMove);
+                    };
+
+                    image_object.src = src;
+        
+                    return;
+                }else {
+
+                _defaultHeight = _bgImg.data('_defaultHeight');
+                _defaultWidth = _bgImg.data('_defaultWidth');
+
+
+              }
+
+              mouseMove.apply(this, arguments);
+              _ui.glass.on('mousemove', mouseMove);
+            });
+
+            
+        };
  
     $.fn.magnifier = function (options) {
         return this.each(function () {
